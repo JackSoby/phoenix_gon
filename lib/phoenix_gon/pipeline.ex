@@ -23,7 +23,7 @@ defmodule PhoenixGon.Pipeline do
   """
   @spec call(Plug.Conn.t(), Map.t()) :: Plug.Conn.t()
   def call(conn, defaults) do
-    session_gon = get_session(conn, "phoenix_gon")
+    session_gon = fetch_session(conn, "phoenix_gon")
 
     conn = put_private(conn, :phoenix_gon, session_gon || variables_with(defaults))
 

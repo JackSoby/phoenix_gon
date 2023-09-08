@@ -23,16 +23,18 @@ defmodule PhoenixGon.Pipeline do
   """
   @spec call(Plug.Conn.t(), Map.t()) :: Plug.Conn.t()
   def call(conn, defaults) do
-    session_gon = fetch_session(conn, "phoenix_gon")
 
-    conn = put_private(conn, :phoenix_gon, session_gon || variables_with(defaults))
+
+    # session_gon = get_session(conn, "phoenix_gon")
+
+    conn = put_private(conn, :phoenix_gon, variables_with(defaults))
 
     register_before_send(conn, fn conn ->
       gon = conn.private.phoenix_gon
       assets_size = map_size(gon.assets || %{})
 
       cond do
-        is_nil(session_gon) and assets_size == 0 ->
+        assets_size == 0 ->
           conn
 
         assets_size > 0 and conn.status in 300..308 ->

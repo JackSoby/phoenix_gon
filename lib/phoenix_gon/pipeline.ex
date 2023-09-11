@@ -23,8 +23,6 @@ defmodule PhoenixGon.Pipeline do
   """
   @spec call(Plug.Conn.t(), Map.t()) :: Plug.Conn.t()
   def call(conn, defaults) do
-
-
     # session_gon = get_session(conn, "phoenix_gon")
 
     conn = put_private(conn, :phoenix_gon, variables_with(defaults))
@@ -36,7 +34,6 @@ defmodule PhoenixGon.Pipeline do
       if gon.assets do
         assets_size = map_size(gon.assets)
       end
-
 
       cond do
         assets_size == 0 ->
@@ -53,7 +50,8 @@ defmodule PhoenixGon.Pipeline do
 
   @doc false
   @spec variables_with(Map.t()) :: PhoenixGon.Storage.t()
-  defp variables_with(%{assets: fun} = defaults) when is_function(fun), do: variables_with(Map.merge(defaults, %{assets: fun.()}))
-  defp variables_with(defaults), do: Map.merge(%PhoenixGon.Storage{}, defaults)
+  defp variables_with(%{assets: fun} = defaults) when is_function(fun),
+    do: variables_with(Map.merge(defaults, %{assets: fun.()}))
 
+  defp variables_with(defaults), do: Map.merge(%PhoenixGon.Storage{}, defaults)
 end

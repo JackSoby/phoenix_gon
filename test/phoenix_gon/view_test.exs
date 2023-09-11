@@ -7,7 +7,7 @@ defmodule PhoenixGon.ViewTest do
   alias Plug.Conn
 
   describe "#render_gon_script" do
-    test 'text' do
+    test ~c"text" do
       conn =
         %Conn{}
         |> with_gon

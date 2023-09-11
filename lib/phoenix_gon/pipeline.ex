@@ -31,12 +31,12 @@ defmodule PhoenixGon.Pipeline do
 
     register_before_send(conn, fn conn ->
       gon = conn.private.phoenix_gon
+      assets_size = 0
 
-      if(gon.assets){
+      if gon.assets do
         assets_size = map_size(gon.assets)
-      } else {
-        assets_size = 0
-      }
+      end
+
 
       cond do
         assets_size == 0 ->

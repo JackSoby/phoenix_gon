@@ -19,10 +19,13 @@ defmodule PhoenixGon.View do
 
   @spec escape_assets(Plug.Conn.t()) :: String.t()
   def escape_assets(conn) do
-    conn
-    |> assets
-    |> resolve_assets_case(conn)
-    |> json_library().encode!
+    {:ok, res} =
+      conn
+      |> assets
+      |> resolve_assets_case(conn)
+      |> JSON.encode()
+
+    res
     |> javascript_escape
   end
 

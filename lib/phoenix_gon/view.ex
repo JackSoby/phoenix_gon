@@ -23,7 +23,7 @@ defmodule PhoenixGon.View do
       conn
       |> assets
       |> resolve_assets_case(conn)
-      |> JSON.encode()
+      |> Jason.encode()
 
     res
     |> javascript_escape

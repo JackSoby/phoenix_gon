@@ -26,7 +26,7 @@ defmodule PhoenixGon.View do
 
     {:ok, res}=
       result
-      |> JSON.encode()
+      |> Jason.encode()
     IO.inspect(res)
     res
     |> javascript_escape
